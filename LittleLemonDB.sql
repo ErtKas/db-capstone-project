@@ -57,16 +57,32 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `LittleLemonDM`.`MenuItems`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`MenuItems` (
+  `ItemsID` INT NOT NULL,
+  `Courses` VARCHAR(45) NOT NULL,
+  `Drinks` VARCHAR(45) NOT NULL,
+  `Starters` VARCHAR(45) NOT NULL,
+  `Desserts` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`ItemsID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `LittleLemonDM`.`Menu`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `LittleLemonDM`.`Menu` (
   `MenuID` INT NOT NULL,
   `Cuisines` VARCHAR(45) NOT NULL,
-  `Starters` VARCHAR(45) NOT NULL,
-  `Courses` VARCHAR(45) NOT NULL,
-  `Drinks` VARCHAR(45) NOT NULL,
-  `Desserts` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`MenuID`))
+  `ItemsID` INT NOT NULL,
+  PRIMARY KEY (`MenuID`),
+  INDEX `Items_FK_idx` (`ItemsID` ASC) VISIBLE,
+  CONSTRAINT `Items_FK`
+    FOREIGN KEY (`ItemsID`)
+    REFERENCES `LittleLemonDM`.`MenuItems` (`ItemsID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
